@@ -3,12 +3,8 @@ import { Button, Form, Modal } from "semantic-ui-react";
 import EntryForm from "./EntryForm";
 import useEntryDetails from "../hooks/useEntryDetails";
 
-function ModalEdit({ open, description, value, isExpense, id, closeModal, editEntry }) {
-  const updateEntry = useEntryDetails(
-    description,
-    value,
-    isExpense
-  );
+function ModalEdit({ open, description, value, isExpense, id, closeModal }) {
+  const entryUpdate = useEntryDetails(description, value, isExpense);
 
   return (
     <Modal open={open}>
@@ -16,21 +12,18 @@ function ModalEdit({ open, description, value, isExpense, id, closeModal, editEn
       <Modal.Content>
         <Form>
           <EntryForm
-            description={updateEntry.description}
-            setDescription={updateEntry.setDescription}
-            value={updateEntry.value}
-            setValue={updateEntry.setValue}
-            isExpense={updateEntry.isExpense}
-            setIsExpense={updateEntry.setIsExpense}
+            description={entryUpdate.description}
+            value={entryUpdate.value}
+            isExpense={entryUpdate.isExpense}
+            setDescription={entryUpdate.setDescription}
+            setValue={entryUpdate.setValue}
+            setIsExpense={entryUpdate.setIsExpense}
           />
         </Form>
       </Modal.Content>
       <Modal.Actions>
         <Button onClick={() => closeModal()}>Close</Button>
-        <Button
-          primary
-          onClick={() => updateEntry.updateEntryHandler(id)}
-        >
+        <Button primary onClick={() => entryUpdate.updateEntryHandler(id)}>
           Ok
         </Button>
       </Modal.Actions>

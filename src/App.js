@@ -7,10 +7,9 @@ import DisplayBalances from "./components/DisplayBalances";
 import EntryLines from "./components/EntryLines";
 import ModalEdit from "./components/ModalEdit";
 import NewEntryForm from "./components/NewEntryForm";
-import { removeEntry, editEntry } from "./reduces/entries.reducers";
-import { openModal, closeModal } from "./reduces/modal.reducers";
 import useEntryDetails from "./hooks/useEntryDetails";
-
+import { closeModal, openModal } from "./reduces/modal.reducers";
+import { removeEntry } from "./reduces/entries.reducers";
 function App() {
   const [burget, setBurget] = useState(0);
   const [income, setIncome] = useState(0);
@@ -20,13 +19,12 @@ function App() {
   const entries = useSelector((state) => state.entries);
   const { isOpen, id } = useSelector((state) => state.modal);
   const dispatch = useDispatch();
-
   const {
     description,
-    setDescription,
     value,
-    setValue,
     isExpense,
+    setValue,
+    setDescription,
     setIsExpense,
     addEntryHandler,
   } = useEntryDetails();
@@ -55,11 +53,12 @@ function App() {
     });
   }, [income, expense]);
 
+  // editEntry
   useEffect(() => {
     setEntry(() => {
       return entries.find((entry) => entry.id === id);
     });
-  }, [id, isOpen]);
+  }, [isOpen, id, entries]);
 
   return (
     <Container>
@@ -74,16 +73,17 @@ function App() {
       <MainHeader size="h3" title="History" />
       <EntryLines
         entries={entries}
-        removeEntry={(id) => dispatch(removeEntry(id))}
         openModal={(id) => dispatch(openModal(id))}
+        removeEntry={(id) => dispatch(removeEntry(id))}
       />
+
       <MainHeader size="h3" title="Add new transaction" />
       <NewEntryForm
         description={description}
-        setDescription={setDescription}
         value={value}
-        setValue={setValue}
         isExpense={isExpense}
+        setDescription={setDescription}
+        setValue={setValue}
         setIsExpense={setIsExpense}
         addEntry={() => addEntryHandler()}
       />
@@ -92,9 +92,6 @@ function App() {
         open={isOpen}
         {...entry}
         closeModal={() => dispatch(closeModal())}
-        editEntry={(entry) =>
-          dispatch(editEntry({ id, description, value, isExpense }))
-        }
       />
     </Container>
   );

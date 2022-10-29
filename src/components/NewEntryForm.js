@@ -5,31 +5,28 @@ import EntryForm from "./EntryForm";
 
 function NewEntryForm({
   description,
-  setDescription,
   value,
-  setValue,
   isExpense,
+  setValue,
+  setDescription,
   setIsExpense,
-  addEntry,
+  addEntry
 }) {
   return (
     <Form unstackable>
       <EntryForm
         description={description}
-        setDescription={setDescription}
         value={value}
-        setValue={setValue}
         isExpense={isExpense}
+        setDescription={setDescription}
+        setValue={setValue}
         setIsExpense={setIsExpense}
       />
       <ButtonSaveOrCancel
-        addEntry={addEntry}
         description={description}
-        setDescription={setDescription}
         value={value}
-        setValue={setValue}
         isExpense={isExpense}
-        setIsExpense={setIsExpense}
+        addEntry={addEntry}
       />
     </Form>
   );
