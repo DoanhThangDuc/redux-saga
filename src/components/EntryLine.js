@@ -1,17 +1,7 @@
 import React from "react";
 import { Segment, Grid, Icon } from "semantic-ui-react";
 
-function EntryLine({
-  id,
-  description,
-  value,
-  isExpense,
-  removeEntry,
-  openModal,
-  setIsOpenEdit,
-  setEntryId,
-  editEntry
-}) {
+function EntryLine({ id, description, value, isExpense, openModal, removeEntry }) {
   return (
     <>
       <Segment color={isExpense ? "red" : "green"}>
@@ -24,8 +14,12 @@ function EntryLine({
               {value}
             </Grid.Column>
             <Grid.Column width={3}>
-              <Icon name="edit" bordered onClick={()=> openModal(id)}/>
-              <Icon name="trash" bordered onClick={() => removeEntry(id)} />
+              <Icon name="edit" bordered onClick={() => openModal(id)} />
+              <Icon
+                name="trash"
+                bordered
+                onClick={() => removeEntry(id)}
+              />
             </Grid.Column>
           </Grid.Row>
         </Grid>

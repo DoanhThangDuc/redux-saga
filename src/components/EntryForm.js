@@ -3,10 +3,10 @@ import { Form, Segment, Checkbox } from "semantic-ui-react";
 
 function EntryForm({
   description,
-  setDescription,
   value,
-  setValue,
   isExpense,
+  setValue,
+  setDescription,
   setIsExpense,
 }) {
   return (
